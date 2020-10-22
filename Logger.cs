@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 
 namespace Repos.Log
-
 {
     public class Logger
     {
@@ -24,7 +23,7 @@ namespace Repos.Log
                     w.WriteLine(DateTime.Now.ToString(@"yy-MM-ddtHH\:mm") + ": " + mensaje);
                 }
             }
-            catch /*(Exception ex)*/
+            catch
             {
             }
         }
@@ -34,10 +33,9 @@ namespace Repos.Log
             if (!IsStartDataUpdate)
             {
                 IsStartDataUpdate = true;
-                //encabezado
                 WriteDataUpdate(DateHeader, false);
-
             }
+
             Debug.WriteLine(mensaje);
             try
             {
@@ -47,7 +45,7 @@ namespace Repos.Log
                     w.WriteLine(h + mensaje);
                 }
             }
-            catch /*(Exception ex)*/
+            catch
             {
             }
         }
@@ -57,10 +55,9 @@ namespace Repos.Log
             if (!IsStartConnection)
             {
                 IsStartConnection = true;
-                //encabezado
                 WriteConnection(DateHeader, false);
-               
             }
+
             Debug.WriteLine(mensaje);
             try
             {
@@ -70,7 +67,7 @@ namespace Repos.Log
                     w.WriteLine(h + mensaje);
                 }
             }
-            catch /*(Exception ex)*/
+            catch
             {
             }
         }
@@ -82,18 +79,17 @@ namespace Repos.Log
                 var dir = new DirectoryInfo(ReposFolder);
                 if (!dir.Exists)
                     dir.Create();
-                
+
                 timer = Stopwatch.StartNew();
                 Debug.Indent();
                 if (File.Exists(ReposFolder + LogPrefix + @"Trivial.log.txt"))
                     File.Delete(ReposFolder + LogPrefix + @"Trivial.log.txt");
-                IsStartTrivial = true;                
+                IsStartTrivial = true;
                 Trivial(DateHeader, false);
-               
             }
 
             var mth = new StackTrace().GetFrame(1).GetMethod();
-            var _prefix = hour ? timer.Elapsed.ToString() + " (" + mth.ReflectedType.Name + ")\t\t": string.Empty;
+            var _prefix = hour ? timer.Elapsed.ToString() + " (" + mth.ReflectedType.Name + ")\t\t" : string.Empty;
             var s = _prefix + mensaje;
 
             Debug.WriteLine(s);
@@ -104,7 +100,7 @@ namespace Repos.Log
                     w.WriteLine(s);
                 }
             }
-            catch /*(Exception ex)*/
+            catch
             {
             }
         }
@@ -117,6 +113,4 @@ namespace Repos.Log
             }
         }
     }
-
-
 }
