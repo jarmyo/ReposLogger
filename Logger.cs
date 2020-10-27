@@ -22,8 +22,7 @@ namespace Repos.Log
                 {
                     w.WriteLine(DateTime.Now.ToString(@"yy-MM-ddtHH\:mm") + ": " + mensaje);
                 }
-            }
-            catch
+            } catch
             {
             }
         }
@@ -44,8 +43,7 @@ namespace Repos.Log
                     string h = hour ? DateTime.Now.ToString(@"HH\:mm") + ":" : string.Empty;
                     w.WriteLine(h + mensaje);
                 }
-            }
-            catch
+            } catch
             {
             }
         }
@@ -66,8 +64,7 @@ namespace Repos.Log
                     string h = hour ? DateTime.Now.ToString(@"HH\:mm") + ":" : string.Empty;
                     w.WriteLine(h + mensaje);
                 }
-            }
-            catch
+            } catch
             {
             }
         }
@@ -99,8 +96,7 @@ namespace Repos.Log
                 {
                     w.WriteLine(s);
                 }
-            }
-            catch
+            } catch
             {
             }
         }
