@@ -6,8 +6,11 @@ namespace Repos.Log
 {
     public class Logger
     {
+        // Cambie estos valores para su aplicación
         public const string ReposFolder = @"c:\Repos\logs\";
         public static string LogPrefix = "repos";
+        
+        
         public static Stopwatch timer;
         public static bool IsStartConnection = false;
         public static bool IsStartTrivial = false;
