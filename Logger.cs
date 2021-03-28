@@ -10,7 +10,6 @@ namespace Repos.Log
         public const string ReposFolder = @"c:\Repos\logs\";
         public static string LogPrefix = "repos";
         
-        
         public static Stopwatch timer;
         public static bool IsStartConnection = false;
         public static bool IsStartTrivial = false;
