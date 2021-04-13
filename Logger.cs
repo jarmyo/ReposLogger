@@ -4,16 +4,16 @@ using System.IO;
 
 namespace Repos.Log
 {
-    public class Logger
+    public static class Logger
     {
         // Cambie estos valores para su aplicación
         public static readonly string ReposFolder = @"c:\Repos\logs\";
         public static readonly string LogPrefix = "repos";
-        
-        public static Stopwatch timer;
-        public static bool IsStartConnection = false;
-        public static bool IsStartTrivial = false;
-        public static bool IsStartDataUpdate = false;
+
+        private static Stopwatch timer;
+        private static bool isStartTrivial = false;
+        private static bool isStartDataUpdate = false;
+        private static bool isStartConnection = false; 
 
         public static void Write(string mensaje)
         {
@@ -24,19 +24,21 @@ namespace Repos.Log
                 {
                     w.WriteLine(DateTime.Now.ToString(@"yy-MM-ddtHH\:mm") + ": " + mensaje);
                 }
-            } catch
+            }
+            catch
             {
+                // No se pudo escribir en el log
             }
         }
         public static void WriteDataUpdate(string mensaje)
         {
             WriteDataUpdate(mensaje, true);
         }
-            public static void WriteDataUpdate(string mensaje, bool hour)
+        public static void WriteDataUpdate(string mensaje, bool hour)
         {
-            if (!IsStartDataUpdate)
+            if (!isStartDataUpdate)
             {
-                IsStartDataUpdate = true;
+                isStartDataUpdate = true;
                 WriteDataUpdate(DateHeader, false);
             }
 
@@ -48,21 +50,21 @@ namespace Repos.Log
                     string h = hour ? DateTime.Now.ToString(@"HH\:mm") + ":" : string.Empty;
                     w.WriteLine(h + mensaje);
                 }
-            } catch
+            }
+            catch
             {
+                // No se pudo escribir en el log
             }
         }
-
         public static void WriteConnection(string mensaje)
         {
             WriteConnection(mensaje, true);
         }
-
         public static void WriteConnection(string mensaje, bool hour)
         {
-            if (!IsStartConnection)
+            if (!isStartConnection)
             {
-                IsStartConnection = true;
+                isStartConnection = true;
                 WriteConnection(DateHeader, false);
             }
 
@@ -74,19 +76,19 @@ namespace Repos.Log
                     string h = hour ? DateTime.Now.ToString(@"HH\:mm") + ":" : string.Empty;
                     w.WriteLine(h + mensaje);
                 }
-            } catch
+            }
+            catch
             {
+                // No se pudo escribir en el log
             }
         }
-
         public static void Trivial(string mensaje)
         {
             Trivial(mensaje, true);
         }
-
-        public static void Trivial(string mensaje, bool hour )
+        public static void Trivial(string mensaje, bool hour)
         {
-            if (!IsStartTrivial)
+            if (!isStartTrivial)
             {
                 var dir = new DirectoryInfo(ReposFolder);
                 if (!dir.Exists)
@@ -101,7 +103,7 @@ namespace Repos.Log
                     File.Delete(ReposFolder + LogPrefix + @"Trivial.log.txt");
                 }
 
-                IsStartTrivial = true;
+                isStartTrivial = true;
                 Trivial(DateHeader, false);
             }
 
@@ -116,17 +118,14 @@ namespace Repos.Log
                 {
                     w.WriteLine(s);
                 }
-            } catch
+            }
+            catch
             {
             }
         }
-
-        private static string DateHeader
-        {
-            get
-            {
-                return "=-=-=-=- [ " + DateTime.Now.ToString(@"yy-MM-dd") + " ] =-=-=-=-";
-            }
-        }
+        private static string DateHeader => "=-=-=-=- [ " + DateTime.Now.ToString(@"yy-MM-dd") + " ] =-=-=-=-";
+        public static bool IsStartConnection { get => isStartConnection; set => isStartConnection = value; }        
+        public static bool IsStartDataUpdate { get => isStartDataUpdate; set => isStartDataUpdate = value; }
+        public static bool IsStartTrivial { get => isStartTrivial; set => isStartTrivial = value; }
     }
 }
