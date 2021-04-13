@@ -11,9 +11,9 @@ namespace Repos.Log
         public static readonly string LogPrefix = "repos";
 
         private static Stopwatch timer;
-        private static bool isStartTrivial = false;
-        private static bool isStartDataUpdate = false;
-        private static bool isStartConnection = false; 
+        private static bool isStartTrivial;
+        private static bool isStartDataUpdate;
+        private static bool isStartConnection; 
 
         public static void Write(string mensaje)
         {
@@ -121,6 +121,7 @@ namespace Repos.Log
             }
             catch
             {
+                // No se pudo escribir en el log
             }
         }
         private static string DateHeader => "=-=-=-=- [ " + DateTime.Now.ToString(@"yy-MM-dd") + " ] =-=-=-=-";
