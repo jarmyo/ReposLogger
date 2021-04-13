@@ -7,8 +7,8 @@ namespace Repos.Log
     public class Logger
     {
         // Cambie estos valores para su aplicación
-        public const string ReposFolder = @"c:\Repos\logs\";
-        public static string LogPrefix = "repos";
+        public static readonly string ReposFolder = @"c:\Repos\logs\";
+        public static readonly string LogPrefix = "repos";
         
         public static Stopwatch timer;
         public static bool IsStartConnection = false;
@@ -28,8 +28,11 @@ namespace Repos.Log
             {
             }
         }
-
-        public static void WriteDataUpdate(string mensaje, bool hour = true)
+        public static void WriteDataUpdate(string mensaje)
+        {
+            WriteDataUpdate(mensaje, true);
+        }
+            public static void WriteDataUpdate(string mensaje, bool hour)
         {
             if (!IsStartDataUpdate)
             {
@@ -50,7 +53,12 @@ namespace Repos.Log
             }
         }
 
-        public static void WriteConnection(string mensaje, bool hour = true)
+        public static void WriteConnection(string mensaje)
+        {
+            WriteConnection(mensaje, true);
+        }
+
+        public static void WriteConnection(string mensaje, bool hour)
         {
             if (!IsStartConnection)
             {
@@ -71,18 +79,28 @@ namespace Repos.Log
             }
         }
 
-        public static void Trivial(string mensaje, bool hour = true)
+        public static void Trivial(string mensaje)
+        {
+            Trivial(mensaje, true);
+        }
+
+        public static void Trivial(string mensaje, bool hour )
         {
             if (!IsStartTrivial)
             {
                 var dir = new DirectoryInfo(ReposFolder);
                 if (!dir.Exists)
+                {
                     dir.Create();
+                }
 
                 timer = Stopwatch.StartNew();
                 Debug.Indent();
                 if (File.Exists(ReposFolder + LogPrefix + @"Trivial.log.txt"))
+                {
                     File.Delete(ReposFolder + LogPrefix + @"Trivial.log.txt");
+                }
+
                 IsStartTrivial = true;
                 Trivial(DateHeader, false);
             }
