@@ -38,12 +38,6 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>repos.pfx</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,11 +47,5 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="repos.pfx" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)" == "Release" (powershell.exe  -ExecutionPolicy Bypass -File  "$(SolutionDir)Build\confuserps.ps1" "'$(TargetDir)'" "'$(TargetDir)'" "'$(TargetPath)'" "'$(TargetDir)app.publish\$(TargetFileName)'" "'$(SolutionDir)Build\confuser.crproj'" "'$(SolutionDir)Build\Confuser.CLI.exe'" "'aggressive'" )</PostBuildEvent>
-  </PropertyGroup>
 </Project>
